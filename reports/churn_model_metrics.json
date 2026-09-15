@@ -1,0 +1,18 @@
+{
+  "accuracy": 0.7722884724588303,
+  "precision": 0.5548172757475083,
+  "recall": 0.715203426124197,
+  "f1": 0.6248830682881198,
+  "roc_auc": 0.8454851745330946,
+  "decision_threshold": 0.5999999999999999,
+  "best_params": {
+    "model__C": 10
+  },
+  "model": "Pipeline",
+  "confusion_matrix": {
+    "tn": 1026,
+    "fp": 268,
+    "fn": 133,
+    "tp": 334
+  }
+}
