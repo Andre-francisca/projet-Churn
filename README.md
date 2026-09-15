@@ -1,43 +1,48 @@
 # Projet_3_Churn
 
-Ce dépôt contient un projet de prédiction du churn client à partir du jeu de données Telco Customer Churn.
-L’objectif est de construire, évaluer et documenter un modèle de classification binaire capable de prédire si un client va quitter le service (`Churn = Yes`) ou rester (`Churn = No`).
+Ce dépôt présente un projet de prédiction du churn client à partir du jeu de données Telco Customer Churn.
+L’objectif principal est de construire un modèle de classification binaire capable de distinguer les clients qui vont rester (`No`) de ceux qui vont résilier le contrat (`Yes`).
 
-## 1. Description du projet
+Le projet montre le workflow complet d’un projet de data science : exploration, nettoyage, préparation, modélisation, validation, visualisation et rédaction de rapports.
 
-Le projet couvre l’ensemble du flux de travail de machine learning :
+## 1. Contexte métier
+
+Le churn correspond au risque qu’un client décide de quitter une entreprise ou un service.
+Dans un contexte télécom, l’identification des clients à risque permet à l’entreprise de mieux cibler ses actions de fidélisation, de réduire les pertes de revenus et de mieux comprendre la relation entre la qualité de service et la fidélité des abonnés.
+
+## 2. Jeu de données
+
+Le dataset utilisé est disponible dans le dossier `data/` et porte le nom :
+
+- `WA_Fn-UseC_-Telco-Customer-Churn.csv`
+
+Il contient des variables décrivant les abonnements, les contrats, les services, les facturations et le statut final de churn du client.
+
+## 3. Pipeline du projet
+
+Le projet couvre les étapes suivantes :
 
 1. Chargement et nettoyage du dataset.
 2. Analyse de qualité des données.
-3. Préparation des variables numériques et catégorielles.
+3. Préparation des colonnes numériques et catégorielles.
 4. Entraînement d’un modèle de régression logistique.
-5. Sélection des hyperparamètres par validation croisée.
-6. Évaluation sur un jeu de test réservé.
-7. Production de rapports et de visualisations.
+5. Recherche d’hyperparamètres via `GridSearchCV`.
+6. Évaluation sur un test final.
+7. Génération de rapports et visualisations.
 
-## 2. Pré-requis
+## 4. Pré-requis
 
 Le projet a été développé avec Python 3.10+.
 
-Les dépendances principales sont :
-
-```powershell
-python -m pip install pandas numpy scikit-learn matplotlib plotly nbformat streamlit
-```
-
-Si vous voulez réinstaller complètement les dépendances de manière reproductible, vous pouvez utiliser :
+Les dépendances principales sont listées dans le fichier `requirements.txt` du dépôt :
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-Si le fichier `requirements.txt` n’existe pas encore, vous pouvez créer une liste minimale à partir des imports du code :
+Les bibliothèques utilisées sont : `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `plotly`, `nbformat` et `streamlit`.
 
-```powershell
-python -m pip install pandas numpy scikit-learn matplotlib plotly nbformat streamlit
-```
-
-## 3. Installation
+## 5. Installation locale
 
 Cloner le dépôt :
 
@@ -46,18 +51,18 @@ git clone https://github.com/Andre-francisca/projet-Churn.git
 cd projet-Churn
 ```
 
-Créer un environnement virtuel, puis installer les dépendances :
+Créer et activer un environnement virtuel :
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install pandas numpy scikit-learn matplotlib plotly nbformat streamlit
+python -m pip install -r requirements.txt
 ```
 
-## 4. Lancer le projet
+## 6. Exécution du projet
 
-### 4.1 Générer les métriques et le graphe de confusion
+### 6.1 Générer les métriques du modèle
 
 Depuis la racine du projet :
 
@@ -65,57 +70,57 @@ Depuis la racine du projet :
 python .\src\churn_model.py
 ```
 
-Ce script régénère :
+Ce script régénère les artefacts suivants :
 
 - `reports/churn_model_metrics.json`
 - `reports/churn_confusion_matrix.png`
 
-### 4.2 Ouvrir le dashboard HTML
+### 6.2 Ouvrir le dashboard HTML
 
-Le dashboard HTML est préparé dans le dossier `reports/` :
+Le dashboard HTML est fourni dans le dossier `reports/` :
 
 ```powershell
 Start-Process .\reports\churn_dashboard.html
 ```
 
-Vous pouvez aussi l’ouvrir directement via le navigateur en ouvrant le fichier HTML.
+### 6.3 Lancer le dashboard Streamlit
 
-### 4.3 Lancer le dashboard Streamlit interactif
-
-Le projet contient aussi un dashboard interactif généré depuis `src/dashboard.py` :
+Le repository contient aussi un dashboard interactif construit avec Streamlit :
 
 ```powershell
 streamlit run .\src\dashboard.py
 ```
 
-Cette version affiche une interface visuelle de type KPI et de visualisations à partir du dataset et des métriques calculées.
+Cette interface permet d’explorer les clients, la répartition du churn et les indicateurs de performance.
 
-## 5. Structure du dépôt
+## 7. Structure du dépôt
 
-- `data/` : jeu de données brut, source principale du projet.
-- `notebooks/` : carnets d’analyse et de préparation des données.
-- `src/` : scripts Python de preprocessing, modélisation et dashboard.
-- `reports/` : livrables de rendu, visualisations, métriques JSON et rapports markdown.
-- `scripts/` : scripts utilitaires de maintenance du dépôt.
+- `data/` : jeu de données brut utilisé pour l’analyse.
+- `notebooks/` : notebook de préparation et de modélisation.
+- `src/` : scripts de preprocessing, modélisation et dashboard.
+- `reports/` : rapports écrits, visualisations HTML, matrice de confusion et métriques JSON.
+- `scripts/` : script de nettoyage des artefacts notebook.
 
-## 6. Livrables de rapport
+## 8. Livrables de travail
 
-Les livrables rédigés sont séparés dans les trois documents suivants :
+Les livrables écrits du projet sont contenus dans :
 
 1. `reports/01_data_quality_cleaning.md` : qualité des données, statistiques descriptives et nettoyage.
 2. `reports/02_algorithm_selection_performance.md` : modèles, hyperparamètres et performances comparées.
-3. `reports/03_test_generalization_conclusions.md` : test final, généralisation, limites et conclusions.
+3. `reports/03_test_generalization_conclusions.md` : résultats de validation, généralisation et conclusion.
 
-## 7. Livrables du brief
+## 9. Livrables techniques
+
+Le projet produit les livrables suivants :
 
 1. Analyse et préparation des données :
-   - notebook principal `notebooks/01_data_preparation.ipynb` ;
-   - contrôle de qualité des colonnes, des types, des valeurs manquantes et des doublons.
+   - `notebooks/01_data_preparation.ipynb`
+   - contrôles sur les colonnes, types, valeurs manquantes et doublons.
 
 2. Modélisation et validation :
-   - script Python dans `src/churn_model.py` ;
-   - modèle de régression logistique pour la classification binaire du churn ;
-   - métriques enregistrées dans `reports/churn_model_metrics.json`.
+   - `src/churn_model.py`
+   - modèle logistique binaire pour la prédiction du churn.
+   - métriques sauvegardées dans `reports/churn_model_metrics.json`.
 
 3. Visualisations :
    - `reports/churn_dashboard.html`
@@ -123,27 +128,28 @@ Les livrables rédigés sont séparés dans les trois documents suivants :
    - `reports/churn_contract_histogram.html`
    - `reports/churn_confusion_matrix.png`
 
-## 8. Modèle et approche
+## 10. Méthode de modélisation
 
-Le script de machine learning applique un pipeline de preprocessing complet sur les variables numériques et catégorielles, puis lance un `GridSearchCV` sur la constante de régularisation `C` du modèle de régression logistique.
+Le script principal applique un pipeline complet de preprocessing pour les variables numériques et catégorielles, puis lance un `GridSearchCV` sur la constante de régularisation `C` du modèle de régression logistique.
 
-Le pipeline implémente :
+Le traitement comprend :
 
 - imputation des valeurs manquantes ;
-- encodage OneHot des variables catégorielles ;
+- encodage OneHot pour les variables catégorielles ;
 - normalisation des variables numériques ;
-- entraînement du classifieur avec validation croisée.
+- entraînement du modèle sur les données préparées.
 
-Les métriques de test sont calculées dans le script et écrites dans le fichier JSON de rapport du projet.
-Le seuil de décision est sélectionné par validation croisée uniquement sur le jeu d’entraînement ;
-le jeu de test est conservé pour l’évaluation finale.
+Les métriques de test sont calculées dans le script puis écrites dans le JSON final du projet.
+Le seuil de décision est ajusté par validation croisée sur le jeu d’entraînement uniquement ;
+le jeu de test reste réservé à l’évaluation finale.
 
-## 9. Référence des résultats
+## 11. Référence des résultats
 
-Les résultats livrés doivent être régénérés avec `src/churn_model.py`.
-Les anciennes cellules exploratoires du notebook peuvent afficher des métriques différentes car elles testent plusieurs pipelines, seuils et jeux de paramètres.
-Le JSON généré par le script est la référence finale.
+Les résultats comparables du projet doivent être régénérés à partir de `src/churn_model.py`.
+Les cellules exploratoires du notebook peuvent produire des vues temporaires et parfois différentes, parce qu’elles testent plusieurs pipelines, seuils et combinaisons de paramètres.
+Le fichier JSON généré par le script constitue la source de vérité officielle du rapport final.
 
-## 10. Note de publication
+## 12. Résumé
 
-Le dépôt contient les fichiers utiles pour reproduire le projet, les rapports produits et les visualisations. Les artefacts générés par l’exécution Python et les fichiers système sont ignorés via `.gitignore`.
+Ce dépôt vise à produire une solution simple, reproductible et documentée pour prédire le churn télécom à partir de variables métier et de service client.
+Il montre comment transformer une base de données brute en un modèle exploitable, en visualisations et en livrables de synthèse pour une analyse de décision.
